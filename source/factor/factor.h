@@ -64,7 +64,47 @@ public:
 private:
 	// put your own data structure here!!
 	// you may only change this file between this line
-	
+	vector<double> f_values;
+	scope f_scope;
+
+	class Index {
+		public:
+			vector<int> var_dims;
+			vector<int> var_names;
+
+			//public member functions
+			Index(vector<int>& vn, vector<int>& vd) {
+				var_names = vn;
+				var_dims = vd;
+			}
+			// Use info about variable dimensions to return an index value
+			// for the 1-D values array of the factor.
+			int get_index(const std::map<int,int>& a) {
+				int var_i = 0;
+				int ret_index = 0;
+				std::map<int,int>::const_iterator a_it;
+				for (int var_i = 0; var_i < var_names.size(); var_i++) {
+					int name = var_names.at(var_i);
+					a_it = a.find(name);
+					if (a_it != a.end()) {
+						int prod = a_it->second;
+						for (int var_j = var_i+1; var_j < var_dims.size(); var_j++) {
+							prod *= var_dims.at(var_j)
+						}
+						ret_index += prod;
+					} else {
+						//throw error or undefined
+					}
+				}
+				return ret_index;
+			}
+
+
+	};
+
+	Index f_index;
+
+
 	// and this line (do not remove these comments!)
 };
 
